@@ -47,13 +47,28 @@ class User extends Authenticatable
         ];
     }
 
-    public function taskCreated()
+    // public function taskCreated()
+    // {
+    //     return $this->hasMany(Task::class, 'created_by');
+    // }
+
+    // public function taskAssigned()
+    // {
+    //     return $this->hasMany(Task::class, 'assigned_to');
+    // }
+
+    public function createdTask()
     {
         return $this->hasMany(Task::class, 'created_by');
     }
 
-    public function taskAssigned()
+    public function assignedTask()
     {
-        return $this->hasMany(Task::class, 'assigned_to');
+        return $this->belongsToMany(Task::class, 'task_user')->withTimestamps();
+    }
+
+    public function taskList()
+    {
+        return $this->belongsToMany(TaskDetail::class, 'task_list_user')->withPivot('image', 'status')->withTimestamps();
     }
 }

@@ -15,7 +15,7 @@ class Task extends Model
 
     public function assignee()
     {
-        return $this->belongsTo(User::class, 'assigned_to');
+        return $this->belongsToMany(User::class, 'task_user');
     }
 
     public function taskDetail()
@@ -23,11 +23,11 @@ class Task extends Model
         return $this->hasMany(TaskDetail::class);
     }
 
-    public function getProgressAttribute()
-    {
-        return [
-            'total' => $this->taskDetail->count(),
-            'completed' => $this->taskDetail->where('status', true)->count(),
-        ];
-    }
+    // public function getProgressAttribute()
+    // {
+    //     return [
+    //         'total' => $this->taskDetail->count(),
+    //         'completed' => $this->taskDetail->where('status', true)->count(),
+    //     ];
+    // }
 }

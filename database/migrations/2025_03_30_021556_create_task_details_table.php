@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('task_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title_list');
             $table->text('desc_list')->nullable();
-            $table->string('image')->nullable();
-            $table->boolean('status')->default(false);
+            // $table->string('image')->nullable();
+            // $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
