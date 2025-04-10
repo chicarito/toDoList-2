@@ -39,7 +39,12 @@
     @endif
     <script>
         $(document).ready(function() {
-            $('#table').DataTable();
+            $('#table').DataTable({
+                columnDefs: [{
+                    orderable: false,
+                    target: -1,
+                }]
+            });
             $('#form-select').select2({
                 width: 'resolve',
                 theme: 'classic'

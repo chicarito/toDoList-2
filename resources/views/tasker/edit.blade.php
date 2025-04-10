@@ -1,40 +1,45 @@
 @extends('layout.app')
 @section('content')
-    <a href="/tasker" class="btn btn-danger mb-3 mt-5"
-        onclick="return confirm('kembali akan menghapus semua progress!')">kembali</a>
-    <form action="/tasker/update/{{ $task->id }}" method="post" autocomplete="off">
-        @csrf
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-sm bg-light">
-                    <div class="card-body">
-                        <h4 class="text-center">{{ $task->title }}</h4>
-                        <hr>
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Judul Tugas</label>
-                            <input type="text" name="title" id="title" class="form-control border-2"
-                                value="{{ $task->title }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="desc" class="form-label">Deskripsi Tugas</label>
-                            <textarea name="desc" id="desc" class="form-control border-2">{{ $task->desc }}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="assigned_to" class="form-label">Pilih Worker</label>
-                            <select name="assigned_to" id="assigned_to" class="form-control" required>
-                                <option value="" selected>--pilih worker--</option>
-                                @foreach ($user as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ $task->assignee->id == $item->id ? 'selected' : '' }}>{{ $item->name }} -
-                                        ({{ $item->email }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-dark w-100">submit</button>
+    <h4 class="text-center mt-4">EDIT TUGAS</h4>
+    <a href="/tasker" class="btn btn-dark">kembali</a>
+
+    <form action="" method="post" autocomplete="off">
+        <div class="d-flex justify-content-center">
+            <div class="card shadow-sm bg-light mt-3" style="width: 500px">
+                <div class="card-body">
+                    @csrf
+                    <input type="hidden" name="created_by" value="{{ Auth::id() }}">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Judul Tugas</label>
+                        <input type="text" name="title" id="title" class="form-control" required>
                     </div>
+                    <button type="submit" class="btn btn-dark w-100">edit tugas</button>
                 </div>
             </div>
         </div>
+
+        <h5 class="text-center mt-3">pilih pekerja</h5>
+        <table id="table" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama pekerja</th>
+                    <th>email</th>
+                    <th class="text-center">select all
+                        <input type="checkbox" name="" id="" class="form-check-inline">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>asep</td>
+                    <td>asep@gmail.com</td>
+                    <td class="text-center">
+                        <input type="checkbox" name="" id="checkbox" class="form-check-inline">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </form>
 @endsection

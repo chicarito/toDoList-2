@@ -15,7 +15,7 @@ class Task extends Model
 
     public function assignee()
     {
-        return $this->belongsToMany(User::class, 'task_user');
+        return $this->belongsToMany(User::class, 'task_user')->withTimestamps();
     }
 
     public function taskDetail()
