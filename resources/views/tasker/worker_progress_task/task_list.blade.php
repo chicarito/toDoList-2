@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
-    <h4 class="text-center mt-4">Progres Asep di Nama tugas</h4>
-    <a href="/tasker/worker-progress-task" class="btn btn-dark">kembali</a>
+    <h4 class="text-center mt-4">Progres {{ $user->name }} di {{ $task->title }}</h4>
+    <a href="/tasker/worker-progress-task/{{ $task->id }}" class="btn btn-dark">kembali</a>
     <table id="table" class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -12,26 +12,29 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Lorem, ipsum dolor.</td>
-                <td>
-                    <span class="badge text-bg-success">selesai</span>
-                </td>
-                <td class="text-center">
-                    <a href="/tasker/worker-progress-task/task-list/show" class="btn btn-primary">lihat bukti pengerjaan</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Lorem, ipsum dolor.</td>
-                <td>
-                    <span class="badge text-bg-danger">belum selesai</span>
-                </td>
-                <td class="text-center">
-                    <a href="/tasker/worker-progress-task/task-list/show" class="btn btn-primary disabled">lihat bukti pengerjaan</a>
-                </td>
-            </tr>
+            @foreach ($task->taskDetail as $item)
+                @php
+                    $pivot = $item->workers()->where('user_id', $user->id)->first()?->pivot;
+                @endphp
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->title_list }}</td>
+                    <td>
+                        {{-- <span
+                            class="badge {{ $item->status ? 'text-bg-success' : 'text-bg-danger' }}">{{ $item->status ? 'selesai' : 'belum selesai' }}</span> --}}
+                        @if ($pivot?->status)
+                            <span class="badge text-bg-success">selesai</span>
+                        @else
+                            <span class="badge text-bg-danger">belum selesai</span>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        <a href="/tasker/worker-progress-task/task-list/show"
+                            class="btn btn-primary {{ $item->status ? '' : 'disabled' }}">lihat bukti
+                            pengerjaan</a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 @endsection

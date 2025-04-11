@@ -15,6 +15,6 @@ class TaskDetail extends Model
 
     public function workers()
     {
-        return $this->belongsToMany(User::class, 'task_list_user')->withPivot('image', 'status')->withTimestamps();
+        return $this->belongsToMany(User::class, 'task_detail_user')->withPivot('image', 'status')->withTimestamps();
     }
 }

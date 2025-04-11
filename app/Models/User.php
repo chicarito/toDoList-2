@@ -47,16 +47,6 @@ class User extends Authenticatable
         ];
     }
 
-    // public function taskCreated()
-    // {
-    //     return $this->hasMany(Task::class, 'created_by');
-    // }
-
-    // public function taskAssigned()
-    // {
-    //     return $this->hasMany(Task::class, 'assigned_to');
-    // }
-
     public function createdTask()
     {
         return $this->hasMany(Task::class, 'created_by');
@@ -69,6 +59,6 @@ class User extends Authenticatable
 
     public function taskList()
     {
-        return $this->belongsToMany(TaskDetail::class, 'task_list_user')->withPivot('image', 'status')->withTimestamps();
+        return $this->belongsToMany(TaskDetail::class, 'task_detail_user')->withPivot('image', 'status')->withTimestamps();
     }
 }

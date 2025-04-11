@@ -3,15 +3,15 @@
     <h4 class="text-center mt-4">EDIT TUGAS</h4>
     <a href="/tasker" class="btn btn-dark">kembali</a>
 
-    <form action="" method="post" autocomplete="off">
+    <form action="/tasker/update/{{ $task->id }}" method="post" autocomplete="off">
         <div class="d-flex justify-content-center">
             <div class="card shadow-sm bg-light mt-3" style="width: 500px">
                 <div class="card-body">
                     @csrf
-                    <input type="hidden" name="created_by" value="{{ Auth::id() }}">
                     <div class="mb-3">
                         <label for="title" class="form-label">Judul Tugas</label>
-                        <input type="text" name="title" id="title" class="form-control" required>
+                        <input type="text" name="title" id="title" class="form-control" required
+                            value="{{ $task->title }}">
                     </div>
                     <button type="submit" class="btn btn-dark w-100">edit tugas</button>
                 </div>
@@ -25,20 +25,21 @@
                     <th>No</th>
                     <th>Nama pekerja</th>
                     <th>email</th>
-                    <th class="text-center">select all
-                        <input type="checkbox" name="" id="" class="form-check-inline">
-                    </th>
+                    <th class="text-center">select all</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>asep</td>
-                    <td>asep@gmail.com</td>
-                    <td class="text-center">
-                        <input type="checkbox" name="" id="checkbox" class="form-check-inline">
-                    </td>
-                </tr>
+                @foreach ($workers as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td class="text-center">
+                            <input type="checkbox" name="assignee[]" value="{{ $item->id }}"
+                                {{ in_array($item->id, $selected_workers) ? 'checked' : '' }} class="form-check-inline">
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </form>

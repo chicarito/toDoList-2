@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('task_list_user', function (Blueprint $table) {
+        Schema::create('task_detail_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('task_list_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('task_detail_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('image')->nullable();
             $table->boolean('status')->default(false);
-            $table->unique(['task_list_id', 'user_id']);
+            $table->unique(['task_detail_id','user_id']);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('task_list_user');
+        Schema::dropIfExists('task_detail_user');
     }
 };

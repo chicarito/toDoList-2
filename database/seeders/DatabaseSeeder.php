@@ -28,8 +28,36 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
+            'name' => 'tasker2',
+            'email' => 'tasker2@gmail.com',
+            'password' => bcrypt(12345),
+            'role' => 'tasker',
+        ]);
+
+        User::create([
             'name' => 'worker',
             'email' => 'worker@gmail.com',
+            'password' => bcrypt(12345),
+            'role' => 'worker',
+        ]);
+
+        User::create([
+            'name' => 'agus',
+            'email' => 'agus@gmail.com',
+            'password' => bcrypt(12345),
+            'role' => 'worker',
+        ]);
+
+        User::create([
+            'name' => 'asep',
+            'email' => 'asep@gmail.com',
+            'password' => bcrypt(12345),
+            'role' => 'worker',
+        ]);
+
+        User::create([
+            'name' => 'mamat',
+            'email' => 'mamat@gmail.com',
             'password' => bcrypt(12345),
             'role' => 'worker',
         ]);

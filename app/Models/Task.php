@@ -22,12 +22,4 @@ class Task extends Model
     {
         return $this->hasMany(TaskDetail::class);
     }
-
-    // public function getProgressAttribute()
-    // {
-    //     return [
-    //         'total' => $this->taskDetail->count(),
-    //         'completed' => $this->taskDetail->where('status', true)->count(),
-    //     ];
-    // }
 }
