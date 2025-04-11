@@ -11,14 +11,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Lorem, ipsum dolor.</td>
-                <td>Agus</td>
-                <td class="text-center">
-                    <a href="/quest/task-list" class="btn btn-success">lihat</a>
-                </td>
-            </tr>
+            @foreach ($tasks as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->title }}</td>
+                    <td>{{ $item->creator->name }}</td>
+                    <td class="text-center">
+                        <a href="/quest/task-list/{{ $item->id }}" class="btn btn-success">lihat</a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 @endsection

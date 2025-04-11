@@ -19,6 +19,7 @@
         </div>
 
         <h5 class="text-center mt-3">pilih pekerja</h5>
+        <small class="text-sm text-danger">* tidak memilih pekerja, otomatis akan diberikan ke semua pekerja</small>
         <table id="table" class="table table-bordered table-hover">
             <thead>
                 <tr>

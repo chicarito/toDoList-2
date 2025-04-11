@@ -20,8 +20,6 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->title_list }}</td>
                     <td>
-                        {{-- <span
-                            class="badge {{ $item->status ? 'text-bg-success' : 'text-bg-danger' }}">{{ $item->status ? 'selesai' : 'belum selesai' }}</span> --}}
                         @if ($pivot?->status)
                             <span class="badge text-bg-success">selesai</span>
                         @else
@@ -29,8 +27,8 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="/tasker/worker-progress-task/task-list/show"
-                            class="btn btn-primary {{ $item->status ? '' : 'disabled' }}">lihat bukti
+                        <a href="{{ asset('storage/' . $pivot?->image) }}" target="_blank"
+                            class="btn btn-primary {{ $pivot?->image ?? 'disabled' }}">lihat bukti
                             pengerjaan</a>
                     </td>
                 </tr>

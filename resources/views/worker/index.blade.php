@@ -11,15 +11,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Lorem, ipsum dolor.</td>
-                <td class="text-center">
-                    <a href="/worker/edit" class="btn btn-primary">edit</a>
-                    <a href="" class="btn btn-danger" onclick="return confirm('hapus?')">hapus</a>
-                    <a href="/worker/task-list" class="btn btn-warning">list tugas</a>
-                </td>
-            </tr>
+            @foreach ($tasks as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->title }}</td>
+                    <td class="text-center">
+                        <a href="/worker/edit/{{ $item->id }}" class="btn btn-primary">edit</a>
+                        <a href="/worker/delete/{{ $item->id }}" class="btn btn-danger"
+                            onclick="return confirm('hapus?')">hapus</a>
+                        <a href="/worker/task-list/{{ $item->id }}" class="btn btn-warning">list tugas</a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 @endsection

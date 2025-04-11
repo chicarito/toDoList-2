@@ -3,7 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PostTaskerController;
+use App\Http\Controllers\PostTaskWorkerController;
+use App\Http\Controllers\QuestController;
 use App\Http\Controllers\TaskerController;
+use App\Http\Controllers\WorkerController;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +36,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':tasker'])->group(function (
         Route::get('/tasker/task-list/delete/{task_detail}', 'delete_task_list');
         Route::get('/tasker/worker-progress-task/{task}', 'worker_progress_task');
         Route::get('/tasker/{user}/worker-progress-task/{task}', 'worker_progress_task_list');
-        // Route::view('/tasker/worker-progress-task/task-list/show', 'tasker.worker_progress_task.show');
+        // Route::get('/tasker/worker-progress-task/task-list/show', 'worker_progress_task_list_show');
     });
     Route::controller(PostTaskerController::class)->group(function () {
         Route::post('/tasker/store', 'store');
@@ -45,13 +48,32 @@ Route::middleware(['auth', RoleMiddleware::class . ':tasker'])->group(function (
 
 
 Route::middleware(['auth', RoleMiddleware::class . ':worker'])->group(function () {
-    Route::view('/worker', 'worker.index');
-    Route::view('/worker/create', 'worker.create');
-    Route::view('/worker/edit', 'worker.edit');
-    Route::view('/worker/task-list', 'worker.task_list.index');
-    Route::view('/worker/task-list/edit', 'worker.task_list.edit');
-    Route::view('/worker/task-list/do-task', 'worker.task_list.do_task');
-    Route::view('/quest', 'worker.quest.index');
-    Route::view('/quest/task-list', 'worker.quest.task_list');
-    Route::view('/quest/task-list/do-task', 'worker.quest.do_task');
+    Route::controller(WorkerController::class)->group(function () {
+        Route::get('/worker', 'index');
+        Route::get('/worker/create', 'create');
+        Route::get('/worker/edit/{task}', 'edit');
+        Route::get('/worker/delete/{task}', 'delete');
+        Route::get('/worker/task-list/{task}', 'task_list');
+        Route::get('/worker/task-list/edit/{task_detail}', 'edit_task_list');
+        Route::get('/worker/task-list/do-task/{task_detail}', 'do_task');
+    });
+    Route::controller(PostTaskWorkerController::class)->group(function () {
+        Route::post('/worker/store', 'store');
+        Route::post('/worker/update/{task}', 'update');
+        Route::post('/worker/task-list/store', 'store_task_list');
+        Route::post('/worker/task-list/update/{task_detail}', 'update_task_list');
+        Route::post('/worker/task-list/post-do-task/{task_detail}', 'do_task_list');
+    });
+
+    Route::controller(QuestController::class)->group(function () {
+        Route::get('/quest', 'index');
+        Route::get('/quest/task-list/{task}', 'task_list');
+        Route::get('/quest/task-list/do-task/{task_detail}', 'do_task');
+        Route::post('/quest/task-list/post-do-task/{task_detail}', 'post_do_task');
+    });
+    // Route::view('/worker/task-list/edit', 'worker.task_list.edit');
+    // Route::view('/worker/task-list/do-task', 'worker.task_list.do_task');
+    // Route::view('/quest', 'worker.quest.index');
+    // Route::view('/quest/task-list', 'worker.quest.task_list');
+    // Route::view('/quest/task-list/do-task', 'worker.quest.do_task');
 });

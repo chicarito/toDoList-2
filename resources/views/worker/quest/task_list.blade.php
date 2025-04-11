@@ -12,26 +12,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Lorem, ipsum dolor.</td>
-                <td>
-                    <span class="badge text-bg-success">selesai</span>
-                </td>
-                <td class="text-center">
-                    <a href="/quest/task-list/do-task" class="btn btn-success">lihat</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Lorem, ipsum dolor.</td>
-                <td>
-                    <span class="badge text-bg-danger">belum selesai</span>
-                </td>
-                <td class="text-center">
-                    <a href="/quest/task-list/do-task" class="btn btn-success">kerjakan</a>
-                </td>
-            </tr>
+            @foreach ($task_list as $item)
+                @php
+                    $pivot = $item->workers->first()?->pivot;
+                @endphp
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $item->title_list }}</td>
+                    <td>
+                        @if ($pivot?->status)
+                            <span class="badge text-bg-success">selesai</span>
+                        @else
+                            <span class="badge text-bg-danger">belum selesai</span>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        <a href="/quest/task-list/do-task/{{ $item->id }}" class="btn btn-success">kerjakan</a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 @endsection

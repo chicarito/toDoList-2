@@ -3,7 +3,7 @@
     <h4 class="text-center mt-4">TAMBAH TUGAS</h4>
     <a href="/worker" class="btn btn-dark">kembali</a>
 
-    <form action="" method="post" autocomplete="off">
+    <form action="/worker/store" method="post" autocomplete="off">
         <div class="d-flex justify-content-center">
             <div class="card shadow-sm bg-light mt-3" style="width: 500px">
                 <div class="card-body">

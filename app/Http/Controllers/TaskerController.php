@@ -65,7 +65,6 @@ class TaskerController extends Controller
     public function worker_progress_task_list(User $user, Task $task)
     {
         $task->with('taskDetail')->get();
-        
         return view('tasker.worker_progress_task.task_list', compact('user', 'task'));
     }
 }
