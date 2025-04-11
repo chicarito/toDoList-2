@@ -33,5 +33,13 @@ Route::middleware(['auth', RoleMiddleware::class . ':tasker'])->group(function (
 
 
 Route::middleware(['auth', RoleMiddleware::class . ':worker'])->group(function () {
-    
+    Route::view('/worker','worker.index');
+    Route::view('/worker/create','worker.create');
+    Route::view('/worker/edit','worker.edit');
+    Route::view('/worker/task-list','worker.task_list.index');
+    Route::view('/worker/task-list/edit','worker.task_list.edit');
+    Route::view('/worker/task-list/do-task','worker.task_list.do_task');
+    Route::view('/quest','worker.quest.index');
+    Route::view('/quest/task-list','worker.quest.task_list');
+    Route::view('/quest/task-list/do-task','worker.quest.do_task');
 });

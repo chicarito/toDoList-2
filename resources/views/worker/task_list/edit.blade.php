@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
     <h4 class="text-center mt-4">Edit list tugas</h4>
-    <a href="/tasker/task-list" class="btn btn-dark">kembali</a>
+    <a href="/worker/task-list" class="btn btn-dark">kembali</a>
     <div class="d-flex justify-content-center">
         <div class="card shadow-sm bg-light mt-3" style="width: 500px">
             <div class="card-body">

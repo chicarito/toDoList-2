@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'tasker',
-            'email' => 'raffiahmad0649@gmail.com',
+            'email' => 'tasker@gmail.com',
             'password' => bcrypt(12345),
             'role' => 'tasker',
         ]);
 
         User::create([
             'name' => 'worker',
-            'email' => 'ahmadraffi349@gmail.com',
+            'email' => 'worker@gmail.com',
             'password' => bcrypt(12345),
             'role' => 'worker',
         ]);
