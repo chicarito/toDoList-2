@@ -36,7 +36,6 @@ Route::middleware(['auth', RoleMiddleware::class . ':tasker'])->group(function (
         Route::get('/tasker/task-list/delete/{task_detail}', 'delete_task_list');
         Route::get('/tasker/worker-progress-task/{task}', 'worker_progress_task');
         Route::get('/tasker/{user}/worker-progress-task/{task}', 'worker_progress_task_list');
-        // Route::get('/tasker/worker-progress-task/task-list/show', 'worker_progress_task_list_show');
     });
     Route::controller(PostTaskerController::class)->group(function () {
         Route::post('/tasker/store', 'store');
@@ -71,9 +70,4 @@ Route::middleware(['auth', RoleMiddleware::class . ':worker'])->group(function (
         Route::get('/quest/task-list/do-task/{task_detail}', 'do_task');
         Route::post('/quest/task-list/post-do-task/{task_detail}', 'post_do_task');
     });
-    // Route::view('/worker/task-list/edit', 'worker.task_list.edit');
-    // Route::view('/worker/task-list/do-task', 'worker.task_list.do_task');
-    // Route::view('/quest', 'worker.quest.index');
-    // Route::view('/quest/task-list', 'worker.quest.task_list');
-    // Route::view('/quest/task-list/do-task', 'worker.quest.do_task');
 });

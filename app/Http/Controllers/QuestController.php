@@ -12,7 +12,7 @@ class QuestController extends Controller
     public function index()
     {
         $worker = Auth::user();
-        $assigned = $worker->assignedTask()->with('creator')->get();
+        $assigned = $worker->assignedTask()->with('creator')->where('created_by', '!=', $worker->id)->get();
         $global_task = Task::doesntHave('assignee')->with('creator')->get();
         $tasks = $assigned->merge($global_task);
         return view('worker.quest.index', compact('tasks'));
