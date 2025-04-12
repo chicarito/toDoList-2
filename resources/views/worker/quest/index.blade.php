@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->title }}</td>
-                    <td>{{ $item->creator->name }}</td>
+                    <td>{{ $item->taskCreator->name }}</td>
                     <td class="text-center">
                         <a href="/quest/task-list/{{ $item->id }}" class="btn btn-success">lihat</a>
                     </td>

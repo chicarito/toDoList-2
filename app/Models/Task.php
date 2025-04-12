@@ -8,7 +8,7 @@ class Task extends Model
 {
     protected $guarded = [''];
 
-    public function creator()
+    public function taskCreator()
     {
         return $this->belongsTo(User::class, 'created_by');
     }

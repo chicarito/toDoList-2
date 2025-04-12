@@ -12,7 +12,7 @@ class TaskerController extends Controller
 {
     public function index()
     {
-        $tasks = Task::where('created_by', Auth::id())->latest()->get();
+        $tasks = Task::where('created_by', Auth::id())->get();
         return view('tasker.index', compact('tasks'));
     }
 
@@ -24,10 +24,12 @@ class TaskerController extends Controller
 
     public function edit(Task $task)
     {
+        // $task->load('assignee');
         $workers = User::where('role', 'worker')->get();
-        $selected_workers = $task->assignee()->select('users.id')->pluck('users.id')->toArray();
+        $selected_workers = $task->assignee()->pluck('users.id')->toArray();
         return view('tasker.edit', compact('task', 'workers', 'selected_workers'));
     }
+
 
     public function delete(Task $task)
     {
@@ -54,17 +56,22 @@ class TaskerController extends Controller
 
     public function worker_progress_task(Task $task)
     {
-        if ($task->assignee()->count() > 0) {
-            $workers = $task->assignee()->select('users.id', 'users.name', 'users.email')->get();
-        } else {
-            $workers = User::where('role', 'worker')->select('id', 'name', 'email')->get();
+        $workers = $task->assignee()->select('users.id', 'users.name', 'users.email', 'users.role')->get();
+        if ($workers->isEmpty()) {
+            $workers = User::where('role', 'worker')->select('id', 'name', 'email', 'role')->get();
         }
         return view('tasker.worker_progress_task.index', compact('task', 'workers'));
     }
 
     public function worker_progress_task_list(User $user, Task $task)
     {
-        $task->with('taskDetail')->get();
-        return view('tasker.worker_progress_task.task_list', compact('user', 'task'));
+        $task->with('taskDetail.workers')->get();
+        $task_detail = $task->taskDetail->map(function ($item) use ($user) {
+            $pivot = $item->workers()->where('user_id', $user->id)->first()?->pivot;
+            $item->pivotStatus = $pivot?->status;
+            $item->pivotImage = $pivot?->image;
+            return $item;
+        });
+        return view('tasker.worker_progress_task.task_list', compact('user', 'task', 'task_detail'));
     }
 }

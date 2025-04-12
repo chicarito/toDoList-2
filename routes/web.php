@@ -16,7 +16,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/logout', 'logout');
 });
 
-
 Route::controller(AdminController::class)->middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('/admin', 'index');
     Route::get('/admin/edit/{user}', 'edit');
@@ -37,6 +36,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':tasker'])->group(function (
         Route::get('/tasker/worker-progress-task/{task}', 'worker_progress_task');
         Route::get('/tasker/{user}/worker-progress-task/{task}', 'worker_progress_task_list');
     });
+    
     Route::controller(PostTaskerController::class)->group(function () {
         Route::post('/tasker/store', 'store');
         Route::post('/tasker/update/{task}', 'update');
@@ -44,7 +44,6 @@ Route::middleware(['auth', RoleMiddleware::class . ':tasker'])->group(function (
         Route::post('/tasker/task-list/update-task-list/{task_detail}', 'update_task_list');
     });
 });
-
 
 Route::middleware(['auth', RoleMiddleware::class . ':worker'])->group(function () {
     Route::controller(WorkerController::class)->group(function () {
@@ -56,6 +55,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':worker'])->group(function (
         Route::get('/worker/task-list/edit/{task_detail}', 'edit_task_list');
         Route::get('/worker/task-list/do-task/{task_detail}', 'do_task');
     });
+
     Route::controller(PostTaskWorkerController::class)->group(function () {
         Route::post('/worker/store', 'store');
         Route::post('/worker/update/{task}', 'update');

@@ -13,22 +13,19 @@
         </thead>
         <tbody>
             @foreach ($task->taskDetail as $item)
-                @php
-                    $pivot = $item->workers()->where('user_id', $user->id)->first()?->pivot;
-                @endphp
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->title_list }}</td>
                     <td>
-                        @if ($pivot?->status)
+                        @if ($item->pivotStatus == true)
                             <span class="badge text-bg-success">selesai</span>
                         @else
                             <span class="badge text-bg-danger">belum selesai</span>
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ asset('storage/' . $pivot?->image) }}" target="_blank"
-                            class="btn btn-primary {{ $pivot?->image ?? 'disabled' }}">lihat bukti
+                        <a href="{{ asset('storage/' . $item->pivotImage) }}" target="_blank"
+                            class="btn btn-primary {{ $item->pivotImage ?? 'disabled' }}">lihat bukti
                             pengerjaan</a>
                     </td>
                 </tr>

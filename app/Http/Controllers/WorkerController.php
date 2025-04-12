@@ -4,20 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\TaskDetail;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class WorkerController extends Controller
 {
     public function index()
     {
-        $tasks = Task::where('created_by', Auth::id())->with('assignee')->get();
+        $tasks = Task::where('created_by', Auth::id())->get();
         return view('worker.index', compact('tasks'));
     }
+
     public function create()
     {
         return view('worker.create');
     }
+
     public function edit(Task $task)
     {
         return view('worker.edit', compact('task'));
