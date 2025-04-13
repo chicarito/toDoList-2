@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\TaskDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostTaskerController extends Controller
@@ -56,5 +57,16 @@ class PostTaskerController extends Controller
             'title_list' => 'required',
         ]));
         return redirect('/tasker/task-list/' . $task_detail->task->id)->with('status', 'berhasil ubah list tugas!');
+    }
+
+    public function task_validation(Request $request, User $user, TaskDetail $task_detail)
+    {
+        $status = $request->accepted === 'ditolak' ? false : true;
+        $task_detail->workers()->updateExistingPivot($user->id, [
+            'accepted' => $request->accepted,
+            'reason_rejected' => $request->accepted === 'ditolak' ? $request->reason_rejected : null,
+            'status' => $status,
+        ]);
+        return back()->with('success', 'Status berhasil diperbarui.');
     }
 }

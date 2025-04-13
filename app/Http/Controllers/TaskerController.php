@@ -70,6 +70,8 @@ class TaskerController extends Controller
             $pivot = $item->workers()->where('user_id', $user->id)->first()?->pivot;
             $item->pivotStatus = $pivot?->status;
             $item->pivotImage = $pivot?->image;
+            $item->pivotAccepted = $pivot?->accepted;
+            $item->pivotReasonRejected = $pivot?->reason_rejected;
             return $item;
         });
         return view('tasker.worker_progress_task.task_list', compact('user', 'task', 'task_detail'));

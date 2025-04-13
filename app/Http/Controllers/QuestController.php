@@ -41,4 +41,6 @@ class QuestController extends Controller
         ]);
         return redirect('/quest/task-list/' . $task_detail->task->id)->with('status', 'berhasil mengerjakan tugas!');
     }
+
+    
 }

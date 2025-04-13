@@ -59,6 +59,6 @@ class User extends Authenticatable
 
     public function taskDetailUser()
     {
-        return $this->belongsToMany(TaskDetail::class, 'task_detail_user')->withPivot('image', 'status')->withTimestamps();
+        return $this->belongsToMany(TaskDetail::class, 'task_detail_user')->withPivot('image', 'status', 'accepted', 'reason_rejected')->withTimestamps();
     }
 }

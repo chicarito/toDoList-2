@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{ asset('asset/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/sweetalert2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('asset/select2.min.css') }}">
 </head>
 
 <body>
@@ -22,11 +21,9 @@
     </div>
 
     <script src="{{ asset('asset/jquery.min.js') }}"></script>
-    <script src="{{ asset('asset/addition.js') }}"></script>
     <script src="{{ asset('asset/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset/datatables.min.js') }}"></script>
     <script src="{{ asset('asset/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('asset/select2.min.js') }}"></script>
 
     @if (session('status'))
         <script>
@@ -44,10 +41,6 @@
                     orderable: false,
                     target: -1,
                 }]
-            });
-            $('#form-select').select2({
-                width: 'resolve',
-                theme: 'classic'
             });
         })
     </script>

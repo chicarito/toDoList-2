@@ -36,12 +36,13 @@ Route::middleware(['auth', RoleMiddleware::class . ':tasker'])->group(function (
         Route::get('/tasker/worker-progress-task/{task}', 'worker_progress_task');
         Route::get('/tasker/{user}/worker-progress-task/{task}', 'worker_progress_task_list');
     });
-    
+
     Route::controller(PostTaskerController::class)->group(function () {
         Route::post('/tasker/store', 'store');
         Route::post('/tasker/update/{task}', 'update');
         Route::post('/tasker/task-list/store-task-list', 'store_task_list');
         Route::post('/tasker/task-list/update-task-list/{task_detail}', 'update_task_list');
+        Route::post('/tasker/task-list/{user}/validation-task-list/{task_detail}', 'task_validation');
     });
 });
 
