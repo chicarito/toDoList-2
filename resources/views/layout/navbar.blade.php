@@ -13,9 +13,9 @@
                     <li class="nav-item">
                         <a href="/quest"
                             class="nav-link {{ Request::is('quest') ? 'active' : '' }} position-relative">Quest
-                            <span
+                            {{-- <span
                                 class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">3
-                            </span>
+                            </span> --}}
                         </a>
                     </li>
                 @elseif (Auth::user()->role == 'tasker')
@@ -30,6 +30,42 @@
 
             </ul>
             <ul class="navbar-nav ms-auto">
+                @if (Auth::user()->role == 'worker')
+                    @php
+                        $notifications = Auth::user()->unreadNotifications;
+                    @endphp
+                    <li class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img
+                                src="{{ asset('asset/bell.png') }}" style="width: 20px">
+                            @if ($notifications->count() > 0)
+                                <span
+                                    class="position-absolute top-1 start-80 translate-middle badge rounded-pill bg-danger">
+                                    {{ $notifications->count() }}
+                                </span>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            @forelse ($notifications as $item)
+                                @if ($item->data['created_by'] != Auth::id())
+                                    <li>
+                                        <a href="/quest/task-list/{{ $item->data['task_id'] }}"
+                                            class="dropdown-item">{{ $item->data['message'] }}</a>
+                                    </li>
+                                @endif
+                            @empty
+                                <li>
+                                    <a href="#" class="dropdown-item">tidak ada tugas</a>
+                                </li>
+                            @endforelse
+                            <hr>
+                            @if ($notifications->count() > 0)
+                                <li>
+                                    <a href="/mark-all-read" class="dropdown-item">tandai sudah dibaca</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
                 <li class="nav-item dropdown">
                     <a href="" class="nav-link dropdown-toggle"
                         data-bs-toggle="dropdown">{{ Auth::user()->name }}</a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\TaskerController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Middleware\RoleMiddleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
@@ -70,5 +71,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':worker'])->group(function (
         Route::get('/quest/task-list/{task}', 'task_list');
         Route::get('/quest/task-list/do-task/{task_detail}', 'do_task');
         Route::post('/quest/task-list/post-do-task/{task_detail}', 'post_do_task');
+
+        Route::get('/mark-all-read', function () {
+            Auth::user()->unreadNotifications->markAsRead();
+            return back();
+        });
     });
 });

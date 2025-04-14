@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\TaskDetail;
 use App\Models\User;
+use App\Notifications\TaskAssigned;
 use Illuminate\Http\Request;
 
 class PostTaskerController extends Controller
@@ -24,6 +25,13 @@ class PostTaskerController extends Controller
 
         if (!empty($request->assignee)) {
             $task->assignee()->attach($request->assignee);
+            $workers = User::WhereIn('id', $request->assignee)->get();
+        } else {
+            $workers = User::where('role', 'worker')->get();
+        }
+
+        foreach ($workers as $worker) {
+            $worker->notify(new TaskAssigned($task));
         }
         return redirect('/tasker')->with('status', 'berhasil tambah tugas');
     }

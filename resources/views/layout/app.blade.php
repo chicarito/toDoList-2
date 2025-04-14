@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('asset/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('asset/bootstrap-icons.min.css') }}">
 </head>
 
 <body>
