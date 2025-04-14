@@ -13,10 +13,9 @@
                     <li class="nav-item">
                         <a href="/quest"
                             class="nav-link {{ Request::is('quest') ? 'active' : '' }} position-relative">Quest
-                            {{-- @if ($countTask > 0)
-                                <span
-                                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">{{ $countTask }}</span>
-                            @endif --}}
+                            <span
+                                class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">3
+                            </span>
                         </a>
                     </li>
                 @elseif (Auth::user()->role == 'tasker')
