@@ -33,7 +33,7 @@ class PostTaskerController extends Controller
         foreach ($workers as $worker) {
             $worker->notify(new TaskAssigned($task));
         }
-        return redirect('/tasker')->with('status', 'berhasil tambah tugas');
+        return redirect('/tasker/task-list/' . $task->id)->with('status', 'berhasil tambah tugas');
     }
 
     public function update(Request $request, Task $task)

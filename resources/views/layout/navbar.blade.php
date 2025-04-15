@@ -13,9 +13,6 @@
                     <li class="nav-item">
                         <a href="/quest"
                             class="nav-link {{ Request::is('quest') ? 'active' : '' }} position-relative">Quest
-                            {{-- <span
-                                class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">3
-                            </span> --}}
                         </a>
                     </li>
                 @elseif (Auth::user()->role == 'tasker')
@@ -57,8 +54,8 @@
                                     <a href="#" class="dropdown-item">tidak ada tugas</a>
                                 </li>
                             @endforelse
-                            <hr>
                             @if ($notifications->count() > 0)
+                                <hr>
                                 <li>
                                     <a href="/mark-all-read" class="dropdown-item">tandai sudah dibaca</a>
                                 </li>

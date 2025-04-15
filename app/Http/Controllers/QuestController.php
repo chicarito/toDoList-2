@@ -40,7 +40,5 @@ class QuestController extends Controller
             Auth::id() => $data
         ]);
         return redirect('/quest/task-list/' . $task_detail->task->id)->with('status', 'berhasil mengerjakan tugas!');
-    }
-
-    
+    } 
 }
