@@ -24,7 +24,6 @@ class TaskerController extends Controller
 
     public function edit(Task $task)
     {
-        // $task->load('assignee');
         $workers = User::where('role', 'worker')->get();
         $selected_workers = $task->assignee()->pluck('users.id')->toArray();
         return view('tasker.edit', compact('task', 'workers', 'selected_workers'));
